@@ -13,38 +13,42 @@
             <tr><th scope="col">Id</th><th scope="col">Item</th><th scope="col">Status</th><th scope="col">Actions</th></tr>
         </thead>
         <tbody>
-            @foreach ( $listItems as $listItem)
-            <tr>
-                <td scope="row">{{ $listItem->id}}</td>
-                <td>{{ $listItem->name}}</td>
-                <td>
-                    @if ($listItem->is_complete != 0)
-                    <span class="badge text-bg-success">Done</span>
-                    @else
-                    <span class="badge text-bg-primary">Not yet</span>
-                    @endif
-                </td>
-                <td>
-                    <div class="d-flex flex-row">
-                        @if ($listItem->is_complete == 0)
-                            <form class="mx-1" action="{{ route('markComplete', $listItem->id)}}" method="post">
-                                {{ csrf_field() }}
-                                <input class="btn btn-success" type="submit" value="Done"/>
-                            </form>
+            @if (sizeof($listItems) != 0)
+                @foreach ( $listItems as $listItem)
+                <tr>
+                    <td scope="row">{{ $listItem->id}}</td>
+                    <td>{{ $listItem->name}}</td>
+                    <td>
+                        @if ($listItem->is_complete != 0)
+                        <span class="badge text-bg-success">Done</span>
                         @else
-                            <form class="mx-1" action="{{ route('markNotYet', $listItem->id)}}" method="post">
-                                {{ csrf_field() }}
-                                <input class="btn btn-warning" type="submit" value="Not yet"/>
-                            </form>
+                        <span class="badge text-bg-primary">Not yet</span>
                         @endif
-                        <form class="mx-1" action="{{ route('delete', $listItem->id)}}" method="post">
-                            {{ csrf_field() }}
-                            <input class="btn btn-danger" type="submit" value="Delete"/>
-                        </form>
-                    </div>
-                </td>
-            </tr>
-            @endforeach
+                    </td>
+                    <td>
+                        <div class="d-flex flex-row">
+                            @if ($listItem->is_complete == 0)
+                                <form class="mx-1" action="{{ route('markComplete', $listItem->id)}}" method="post">
+                                    {{ csrf_field() }}
+                                    <input class="btn btn-success" type="submit" value="Done"/>
+                                </form>
+                            @else
+                                <form class="mx-1" action="{{ route('markNotYet', $listItem->id)}}" method="post">
+                                    {{ csrf_field() }}
+                                    <input class="btn btn-warning" type="submit" value="Not yet"/>
+                                </form>
+                            @endif
+                            <form class="mx-1" action="{{ route('delete', $listItem->id)}}" method="post">
+                                {{ csrf_field() }}
+                                <input class="btn btn-danger" type="submit" value="Delete"/>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            @else
+                <tr><td colspan="4" class="text-center">No items found</td></tr>
+            @endif
         </tbody>
     </table>
 
