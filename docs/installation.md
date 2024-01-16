@@ -9,5 +9,8 @@
        `composer create-project laravel/laravel my-app`
 2. if cloneing the repository:
     1. `composer install`
+    2. Rename .env.example to .env
+    3. Generate encription key `php artisan key:generate`
+    4. Setup database credentials in .env
 3. Starting the app:
    `php artisan serve`

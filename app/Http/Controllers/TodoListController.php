@@ -3,12 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+// include the ListItem Model
 use App\Models\ListItem;
 
 class TodoListController extends Controller
 {
     public function index (Request $request){
-        return view('saveItem', ['listItems' => ListItem::all()]);
+        // get item list from model:
+        $itemList = ListItem::all();
+
+        // render View (Front)
+        $view = view('saveItem', ['listItems' => $itemList]);
+
+        return $view;
     }
 
     public function saveItem (Request $request){
